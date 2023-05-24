@@ -5,8 +5,8 @@ import LoginBtn from "./LoginBtn";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import LogoutBtn from "./LogoutBtn";
-
-const inter = Inter({ subsets: ["latin"] });
+import { cookies } from "next/headers";
+import Darkmode from "./darkmode";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,11 +15,12 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const session = await getServerSession(authOptions);
-
+  // 서버컴포넌트에서는 쿠키를 읽거나 set할 수 있다.
+  const mode = cookies().get("theme")?.value || "light";
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="flex">
+      <body className={mode}>
+        <div>
           <div className="navbar">
             <Link href="/" className="logo">
               Appleforum
@@ -33,6 +34,7 @@ export default async function RootLayout({ children }) {
             ) : (
               <LoginBtn />
             )}
+            <Darkmode mode={mode} />
           </div>
           <div>
             <Link href={"/join"}>회원가입</Link>

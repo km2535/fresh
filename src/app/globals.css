@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 body{margin: 0;}
+.flex{
+  width: 100%;
+}
 .list-bg {
   background: rgb(249, 250, 255);
   padding: 10px;
@@ -55,4 +58,11 @@ button {
 }
 .logo {
   font-weight: bold;
+} 
+
+.dark .navbar {
+  background: #222;
+}
+.dark .navbar a {
+  color: white;
 } 
